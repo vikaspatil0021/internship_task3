@@ -26,7 +26,6 @@ const Main = () => {
 
           setUsersData(res.data);
           setUsersDetail(res.data[0])
-      setActiveUser(0)
 
         }, 500)
       }).catch((err) => {
@@ -45,7 +44,11 @@ const Main = () => {
 
     }
   }, [usersDetailData]);
+  const activeEle = document.querySelector('.activeUser');
+if(!activeEle){
+  setActiveUser(0)
 
+}
   
 
   if (usersData === '') {
