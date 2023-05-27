@@ -26,7 +26,6 @@ const Main = () => {
 
           setUsersData(res.data);
           setUsersDetail(res.data[0])
-          setActiveUser('0')
 
         }, 500)
       }).catch((err) => {
@@ -34,7 +33,10 @@ const Main = () => {
       });
 
   }, []);
+  window.onload(()=>{
+    setActiveUser('0')
 
+  })
   useEffect(() => {
     if (usersData) {
 
