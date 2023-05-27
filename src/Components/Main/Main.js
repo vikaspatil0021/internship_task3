@@ -26,12 +26,12 @@ const Main = () => {
 
           setUsersData(res.data);
           setUsersDetail(res.data[0])
+          setActiveUser('0')
 
         }, 500)
       }).catch((err) => {
         console.log(err.message);
       });
-      setActiveUser('0')
 
   }, []);
 
