@@ -33,10 +33,14 @@ const Main = () => {
       });
 
   }, []);
-  window.onload= ()=>{
-    setActiveUser('0')
 
-  }
+  useEffect(()=>{
+    if(usersData){
+
+      setActiveUser(0)
+    }
+  },[usersData])
+
   useEffect(() => {
     if (usersData) {
 
