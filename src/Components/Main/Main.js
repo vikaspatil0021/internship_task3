@@ -30,7 +30,9 @@ const Main = () => {
         }, 500)
       }).catch((err) => {
         console.log(err.message);
-      })
+      });
+      setActiveUser('0')
+
   }, []);
 
   useEffect(() => {
@@ -44,11 +46,7 @@ const Main = () => {
 
     }
   }, [usersDetailData]);
-  const activeEle = document.querySelector('.activeUser');
-if(!activeEle){
-  setActiveUser(0)
-
-}
+  
   
 
   if (usersData === '') {
