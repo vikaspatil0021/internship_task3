@@ -10,8 +10,8 @@ const Main = () => {
     if(activeEle){
       activeEle.classList.remove('activeUser');
     }
-
     const clickedEle = document.querySelector('#userBtn' + id);
+    console.log(clickedEle,id);
     if(clickedEle){
 
       clickedEle.classList.add('activeUser');
