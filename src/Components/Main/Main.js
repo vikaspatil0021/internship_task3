@@ -4,6 +4,7 @@ import axios from 'axios';
 const Main = () => {
   const [usersData, setUsersData] = useState('');
   const [usersDetailData, setUsersDetail] = useState('');
+  const [index, setIndex] = useState(0);
 
   const setActiveUser = (id) => {
     const activeEle = document.querySelector('.activeUser');
@@ -16,6 +17,8 @@ const Main = () => {
 
       clickedEle.classList.add('activeUser');
     }
+
+
   }
   
   useEffect(() => {
@@ -50,22 +53,10 @@ const Main = () => {
   useEffect(() => {
     if (usersData) {
 
-      setActiveUser(0)
+      setActiveUser(0);
+      setIndex(0)
     }
   }, [usersData])
-
-  useEffect(() => {
-    if (usersData) {
-
-      const image1 = document.querySelector("#detailImg");
-      var isLoaded = image1 && image1.complete && image1.naturalHeight !== 0;
-      if (!isLoaded) {
-        image1.src = img1
-      }
-
-    }
-  }, [usersDetailData]);
-
 
 
   if (usersData === '' && usersData.length===0) {
@@ -93,7 +84,8 @@ const Main = () => {
 
                   <div id={'userBtn' + index} onClick={() => {
                     setActiveUser(index);
-                    setUsersDetail(each)
+                    setUsersDetail(each);
+                    setIndex(index)
                   }} role='button' className='selectBtn px-3 py-2 rounded-4 mb-2 mt-2'>
                     <div className='d-flex align-items-center'>
                       <img id={"img" + index} src={(index < 10) ? img1 : each.avatar} class="rounded-5" width='40px' />
@@ -118,7 +110,7 @@ const Main = () => {
           </div>
           <div class="card text-center rounded-4" style={{ width: "24rem" }}>
             <div className='px-3 pt-4 pb-2 '>
-              <img id='detailImg' src={usersDetailData.avatar} class="" width='130px' style={{ borderRadius: "72px" }} />
+              <img id='detailImg' src={(index<10)?img1:usersDetailData.avatar} class="" width='130px' style={{ borderRadius: "72px" }} />
             </div>
             <div class="card-body px-4 pb-4">
               <h5 class="card-title">@{usersDetailData.profile.username}</h5>
