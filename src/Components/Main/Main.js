@@ -21,7 +21,7 @@ const Main = () => {
   useEffect(() => {
     const warnEle = document.querySelector('#warningErr')
     const loader = document.querySelector('#loader');
-    axios.get("https://6472dbf2d784bccb4a3c0e24.mockapi.io/hgchgn")
+    axios.get("https://602e7c2c4410730017c50b9d.mockapi.io/users")
     .then((res) => {
       console.log(res.data);
         setTimeout(() => {
