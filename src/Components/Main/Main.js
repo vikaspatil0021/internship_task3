@@ -5,41 +5,54 @@ const Main = () => {
   const [usersData, setUsersData] = useState('');
   const [usersDetailData, setUsersDetail] = useState('');
 
-  const setActiveUser = (id)=>{
+  const setActiveUser = (id) => {
     const activeEle = document.querySelector('.activeUser');
-    if(activeEle){
+    if (activeEle) {
       activeEle.classList.remove('activeUser');
     }
     const clickedEle = document.querySelector('#userBtn' + id);
-    console.log(clickedEle,id);
-    if(clickedEle){
+    console.log(clickedEle, id);
+    if (clickedEle) {
 
       clickedEle.classList.add('activeUser');
     }
   }
-
+  
   useEffect(() => {
-    axios.get("https://602e7c2c4410730017c50b9d.mockapi.io/users")
-      .then((res) => {
-        console.log(res.data);
+    const warnEle = document.querySelector('#warningErr')
+    const loader = document.querySelector('#loader');
+    axios.get("https://6472dbf2d784bccb4a3c0e24.mockapi.io/hgchgn")
+    .then((res) => {
+      console.log(res.data);
         setTimeout(() => {
-
-          setUsersData(res.data);
-          setUsersDetail(res.data[0])
+          if(res.data && res.data.length!==0){
+            
+            setUsersData(res.data);
+            setUsersDetail(res.data[0])
+          }else{
+            loader.classList.add('d-none');
+        warnEle.classList.remove('d-none')
+            warnEle.innerHTML = 'No data to show.'
+          }
 
         }, 500)
       }).catch((err) => {
         console.log(err.message);
+
+        loader.classList.add('d-none');
+        warnEle.classList.remove('d-none')
+        warnEle.innerHTML = err.message + " Please refresh page"
+
       });
 
   }, []);
 
-  useEffect(()=>{
-    if(usersData){
+  useEffect(() => {
+    if (usersData) {
 
       setActiveUser(0)
     }
-  },[usersData])
+  }, [usersData])
 
   useEffect(() => {
     if (usersData) {
@@ -52,17 +65,21 @@ const Main = () => {
 
     }
   }, [usersDetailData]);
-  
-  
 
-  if (usersData === '') {
+
+
+  if (usersData === '' && usersData.length===0) {
     return <div className='d-flex vh-100 justify-content-center align-items-center fw-bold fs-4'>
+    <div id='loader'>
+
       <div class="spinner-border mx-2" role="status"></div>
       Loading...
     </div>
+    <div id='warningErr' className='d-none text-danger fw-bold fs-4'>Something Went wrong</div>
+    </div>
   }
   return (
-    <div className='d-flex flex-wrap' style={{ background: "#b4e2f5" }}>
+    <div id='uData' className='d-flex flex-wrap' style={{ background: "#b4e2f5" }}>
       <div className='col-12 col-lg-7 d-flex text-center pt-5'>
         <div className='w-100 ps-lg-5 ms-lg-5' >
 
@@ -74,10 +91,10 @@ const Main = () => {
               {usersData.map((each, index) => {
                 return (
 
-                  <div id={'userBtn' + index} onClick={()=>{
+                  <div id={'userBtn' + index} onClick={() => {
                     setActiveUser(index);
                     setUsersDetail(each)
-                    }} role='button' className='selectBtn px-3 py-2 rounded-4 mb-2 mt-2'>
+                  }} role='button' className='selectBtn px-3 py-2 rounded-4 mb-2 mt-2'>
                     <div className='d-flex align-items-center'>
                       <img id={"img" + index} src={(index < 10) ? img1 : each.avatar} class="rounded-5" width='40px' />
 
